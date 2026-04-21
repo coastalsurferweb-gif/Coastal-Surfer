@@ -2153,32 +2153,56 @@
             }
 
             /* ── Map search bar — keep it clear of filter button ── */
+            /* ── Map controls: one row across the top ── */
             .map-search-container {
                 left: 10px;
                 right: 10px;
-                top: 80px;
+                top: 10px;
                 width: auto;
+            }
+            .map-search-row {
+                display: flex;
+                gap: 6px;
+                align-items: center;
             }
             .map-search-input {
                 font-size: 13px;
                 padding: 10px 12px;
                 min-height: 42px;
+                flex: 1;
             }
             .locate-btn {
                 min-width: 42px;
                 min-height: 42px;
+                flex-shrink: 0;
             }
 
-            /* ── Filter widget — keep right, clear of search ── */
+            /* Filter button inline with search row */
             .filter-widget {
+                position: absolute;
                 top: 10px;
                 right: 10px;
+                z-index: 1001;
             }
+            /* Hide the filter text label on mobile, icon only */
+            .filter-text { display: none; }
             .filter-toggle-btn {
                 padding: 10px 12px;
-                font-size: 13px;
                 min-height: 42px;
+                min-width: 42px;
             }
+            .filter-icon { font-size: 20px; }
+
+            /* Pull search container away from right so filter button fits */
+            .map-search-container {
+                right: 58px;
+            }
+
+            /* Push Leaflet zoom below the search row */
+            .leaflet-top.leaflet-left {
+                top: 62px !important;
+            }
+
             .filter-panel {
                 width: calc(100vw - 20px);
                 max-width: 320px;
