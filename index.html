@@ -506,17 +506,19 @@
             right: 10px;
             width: 450px;
             max-height: calc(100% - 20px);
+            height: calc(100% - 20px);
             background: white;
             border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             z-index: 1000;
-            overflow-y: auto;
+            overflow: hidden;
             display: none;
+            flex-direction: column;
             animation: slideIn 0.3s ease-out;
         }
 
         .map-popup-panel.active {
-            display: block;
+            display: flex;
         }
 
         @keyframes slideIn {
@@ -531,12 +533,12 @@
         }
 
         .popup-header {
-            position: sticky;
-            top: 0;
+            position: relative;
             background: white;
             padding: 12px 15px 8px 15px;
             border-bottom: 2px solid #e0e0e0;
             z-index: 100;
+            flex-shrink: 0;
         }
 
         .popup-title {
@@ -699,6 +701,38 @@
 
         .popup-content-wrapper {
             padding: 10px 15px 15px 15px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .popup-scroll-arrow {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1em;
+            color: #0083b0;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            z-index: 1001;
+            line-height: 1;
+            user-select: none;
+            padding-top: 2px;
+        }
+
+        .popup-scroll-arrow.visible {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         @media (max-width: 768px) {
@@ -709,6 +743,7 @@
                 bottom: 0;
                 width: 100%;
                 max-height: 100%;
+                height: 100%;
                 border-radius: 0;
                 margin: 0;
             }
@@ -1033,32 +1068,34 @@
 
         .tide-info {
             background: white;
-            padding: 6px 8px;
-            border-radius: 5px;
+            padding: 8px 10px;
+            border-radius: 8px;
             font-size: 0.8em;
+            grid-column: 1 / -1;
         }
 
         .tide-times {
             display: flex;
-            flex-direction: column;
-            gap: 3px;
+            flex-direction: row;
+            gap: 12px;
             margin-top: 4px;
+            flex-wrap: wrap;
         }
 
         .tide-time {
             display: flex;
-            justify-content: space-between;
+            gap: 5px;
             align-items: center;
         }
 
         .tide-label {
             color: #666;
-            font-size: 0.75em;
+            font-size: 0.82em;
         }
 
         .tide-value {
             font-weight: bold;
-            color: #2e7d32;
+            color: #0083b0;
             font-size: 0.85em;
         }
 
@@ -2523,9 +2560,10 @@
                                 <button class="popup-close-btn" onclick="closeMapPopup()" title="Close">×</button>
                             </div>
                         </div>
-                        <div class="popup-content-wrapper" id="popupContentWrapper">
+                        <div class="popup-content-wrapper" id="popupContentWrapper" onscroll="updatePopupScrollArrow()">
                             <!-- Popup content will be inserted here -->
                         </div>
+                        <div id="popupScrollArrow" class="popup-scroll-arrow" onclick="scrollPopupDown()">&#9660;</div>
                     </div>
                 </div>
             </div>
@@ -6042,80 +6080,141 @@
             }
         }
         
+        // NOAA tide stations with lat/lng for nearest-station lookup
+        const NOAA_TIDE_STATIONS = [
+            // West Coast
+            {id:'9410660',name:'Los Angeles',lat:33.720,lng:-118.272},
+            {id:'9410170',name:'San Diego',lat:32.714,lng:-117.173},
+            {id:'9414290',name:'San Francisco',lat:37.806,lng:-122.465},
+            {id:'9415020',name:'Point Reyes',lat:37.996,lng:-122.976},
+            {id:'9418767',name:'North Spit',lat:40.770,lng:-124.217},
+            {id:'9431647',name:'Port Orford',lat:42.738,lng:-124.499},
+            {id:'9435380',name:'South Beach',lat:44.625,lng:-124.045},
+            {id:'9440910',name:'Toke Point',lat:46.707,lng:-123.967},
+            {id:'9444900',name:'Port Townsend',lat:48.113,lng:-122.760},
+            {id:'9447130',name:'Seattle',lat:47.603,lng:-122.340},
+            // Hawaii
+            {id:'1612340',name:'Honolulu',lat:21.307,lng:-157.867},
+            {id:'1615680',name:'Kahului',lat:20.895,lng:-156.477},
+            {id:'1617760',name:'Hilo',lat:19.730,lng:-155.060},
+            // East Coast
+            {id:'8443970',name:'Boston',lat:42.355,lng:-71.052},
+            {id:'8518750',name:'The Battery NY',lat:40.700,lng:-74.014},
+            {id:'8534720',name:'Atlantic City',lat:39.355,lng:-74.418},
+            {id:'8545240',name:'Philadelphia',lat:39.933,lng:-75.141},
+            {id:'8638610',name:'Sewells Point',lat:36.947,lng:-76.330},
+            {id:'8723970',name:'Vaca Key',lat:24.711,lng:-81.106},
+            {id:'8724580',name:'Key West',lat:24.555,lng:-81.808},
+            {id:'8726520',name:'St Petersburg',lat:27.760,lng:-82.627},
+            {id:'8728690',name:'Apalachicola',lat:29.727,lng:-84.981},
+            {id:'8760922',name:'Pilots Station E',lat:28.932,lng:-89.407},
+            {id:'8770570',name:'Sabine Pass',lat:29.727,lng:-93.870},
+            // Puerto Rico
+            {id:'9755371',name:'San Juan PR',lat:18.459,lng:-66.116},
+            // Gulf
+            {id:'8771341',name:'Galveston',lat:29.310,lng:-94.793},
+            {id:'8779748',name:'South Padre Island',lat:26.067,lng:-97.157},
+        ];
+
+        function findNearestTideStation(lat, lng) {
+            let best = null, bestDist = Infinity;
+            NOAA_TIDE_STATIONS.forEach(function(s) {
+                const d = haversineMiles(lat, lng, s.lat, s.lng);
+                if (d < bestDist) { bestDist = d; best = s; }
+            });
+            return best;
+        }
+
         async function loadTideData(lat, lng) {
-            // Find nearest NOAA tide station (simplified - using hardcoded stations for now)
-            const stations = {
-                'Pipeline': '1612340',      // Honolulu, HI
-                'Mavericks': '9414290',     // San Francisco, CA
-                'Trestles': '9410660',      // Los Angeles, CA
-                'Blackies': '9410660'       // Los Angeles, CA (Newport Beach)
-            };
-            
-            // For demo, use San Francisco station as default
-            const stationId = '9414290';
+            const station = findNearestTideStation(lat, lng);
+            const stationId = station ? station.id : '9414290';
+            const stationName = station ? station.name : 'Nearest Station';
             
             const today = new Date();
             const tomorrow = new Date(today);
             tomorrow.setDate(tomorrow.getDate() + 1);
-            
             const beginDate = today.toISOString().split('T')[0].replace(/-/g, '');
             const endDate = tomorrow.toISOString().split('T')[0].replace(/-/g, '');
-            
-            // Request predictions for today and tomorrow to ensure we get both high and low
-            const tideUrl = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=${beginDate}&end_date=${endDate}&station=${stationId}&product=predictions&datum=MLLW&time_zone=lst_ldt&interval=hilo&units=english&format=json`;
-            
-            const tideResponse = await fetch(tideUrl);
-            const tideData = await tideResponse.json();
-            
-            if (!tideData.predictions || tideData.predictions.length === 0) {
-                throw new Error('No tide data');
-            }
-            
-            // Get next high and low tides
-            const predictions = tideData.predictions;
+
+            // Fetch hi/lo predictions AND hourly curve in parallel
+            const hiloUrl = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=${beginDate}&end_date=${endDate}&station=${stationId}&product=predictions&datum=MLLW&time_zone=lst_ldt&interval=hilo&units=english&format=json`;
+            const hourlyUrl = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=${beginDate}&end_date=${beginDate}&station=${stationId}&product=predictions&datum=MLLW&time_zone=lst_ldt&interval=h&units=english&format=json`;
+
+            const [hiloRes, hourlyRes] = await Promise.all([fetch(hiloUrl), fetch(hourlyUrl)]);
+            const hiloData = await hiloRes.json();
+            const hourlyData = await hourlyRes.json();
+
+            if (!hiloData.predictions || hiloData.predictions.length === 0) throw new Error('No tide data');
+
+            // Next high and low
             const now = new Date();
-            let nextHigh = null;
-            let nextLow = null;
-            
-            for (let pred of predictions) {
+            let nextHigh = null, nextLow = null;
+            for (let pred of hiloData.predictions) {
                 const predTime = new Date(pred.t);
                 if (predTime > now) {
-                    if (pred.type === 'H' && !nextHigh) {
-                        nextHigh = pred;
-                    }
-                    if (pred.type === 'L' && !nextLow) {
-                        nextLow = pred;
-                    }
+                    if (pred.type === 'H' && !nextHigh) nextHigh = pred;
+                    if (pred.type === 'L' && !nextLow) nextLow = pred;
                 }
-                // Keep looking until we find BOTH
                 if (nextHigh && nextLow) break;
             }
-            
-            console.log('Tide data:', { nextHigh, nextLow, totalPredictions: predictions.length });
-            
+
+            // Build SVG tide chart from hourly data
+            let chartHtml = '';
+            if (hourlyData.predictions && hourlyData.predictions.length > 0) {
+                const pts = hourlyData.predictions.map(function(p) { return parseFloat(p.v); });
+                const minV = Math.min(...pts);
+                const maxV = Math.max(...pts);
+                const range = maxV - minV || 1;
+                const W = 260, H = 60, pad = 6;
+                const nowHour = now.getHours();
+
+                // Build SVG polyline points
+                const svgPts = pts.map(function(v, i) {
+                    const x = pad + (i / (pts.length - 1)) * (W - pad * 2);
+                    const y = H - pad - ((v - minV) / range) * (H - pad * 2);
+                    return x.toFixed(1) + ',' + y.toFixed(1);
+                }).join(' ');
+
+                // Current time marker x position
+                const nowX = pad + (nowHour / 23) * (W - pad * 2);
+                const nowV = pts[Math.min(nowHour, pts.length - 1)];
+                const nowY = H - pad - ((nowV - minV) / range) * (H - pad * 2);
+
+                // Fill polygon (close path below chart)
+                const fillPts = pts.map(function(v, i) {
+                    const x = pad + (i / (pts.length - 1)) * (W - pad * 2);
+                    const y = H - pad - ((v - minV) / range) * (H - pad * 2);
+                    return x.toFixed(1) + ',' + y.toFixed(1);
+                });
+                fillPts.push((W - pad).toFixed(1) + ',' + (H - pad));
+                fillPts.push(pad + ',') ;
+                const fillPtsStr = fillPts.slice(0, -1).join(' ') + ' ' + (W - pad).toFixed(1) + ',' + (H - pad) + ' ' + pad + ',' + (H - pad);
+
+                chartHtml = '<svg width="' + W + '" height="' + H + '" style="display:block;margin:8px 0 2px 0;border-radius:6px;overflow:hidden;">' +
+                    '<defs><linearGradient id="tideGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00b4db" stop-opacity="0.5"/><stop offset="100%" stop-color="#00b4db" stop-opacity="0.05"/></linearGradient></defs>' +
+                    '<polygon points="' + fillPtsStr + '" fill="url(#tideGrad)"/>' +
+                    '<polyline points="' + svgPts + '" fill="none" stroke="#00b4db" stroke-width="2" stroke-linejoin="round"/>' +
+                    '<line x1="' + nowX.toFixed(1) + '" y1="' + pad + '" x2="' + nowX.toFixed(1) + '" y2="' + (H - pad) + '" stroke="#ff6b35" stroke-width="1.5" stroke-dasharray="3,2"/>' +
+                    '<circle cx="' + nowX.toFixed(1) + '" cy="' + nowY.toFixed(1) + '" r="3" fill="#ff6b35"/>' +
+                    '<text x="' + pad + '" y="' + (H - 1) + '" font-size="8" fill="#aaa">12am</text>' +
+                    '<text x="' + (W/2 - 6) + '" y="' + (H - 1) + '" font-size="8" fill="#aaa">12pm</text>' +
+                    '<text x="' + (W - 22) + '" y="' + (H - 1) + '" font-size="8" fill="#aaa">11pm</text>' +
+                    '</svg>';
+            }
+
             let html = '<div class="tide-info">';
-            html += '<div class="surf-condition-label">🌙 Tides</div>';
+            html += '<div class="surf-condition-label" style="display:flex;justify-content:space-between;align-items:center;">🌙 Tides <span style="font-size:0.72em;color:#aaa;font-weight:400;">📍 ' + stationName + '</span></div>';
+            html += chartHtml;
             html += '<div class="tide-times">';
-            
             if (nextHigh) {
                 const highTime = new Date(nextHigh.t);
-                html += '<div class="tide-time">';
-                html += '<span class="tide-label">High:</span>';
-                html += '<span class="tide-value">' + highTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) + '</span>';
-                html += '</div>';
+                html += '<div class="tide-time"><span class="tide-label">▲ Next High:</span><span class="tide-value">' + highTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) + ' · ' + parseFloat(nextHigh.v).toFixed(1) + 'ft</span></div>';
             }
-            
             if (nextLow) {
                 const lowTime = new Date(nextLow.t);
-                html += '<div class="tide-time">';
-                html += '<span class="tide-label">Low:</span>';
-                html += '<span class="tide-value">' + lowTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) + '</span>';
-                html += '</div>';
+                html += '<div class="tide-time"><span class="tide-label">▼ Next Low:</span><span class="tide-value">' + lowTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) + ' · ' + parseFloat(nextLow.v).toFixed(1) + 'ft</span></div>';
             }
-            
-            html += '</div>';
-            html += '</div>';
-            
+            html += '</div></div>';
             return html;
         }
 
@@ -6960,15 +7059,9 @@
                 '<div class="spot-btn-row">' +
                 '<button class="spot-info-btn" onclick="showSpotInfo(' + spot.id + ')">📸 Photos, Parking Info, Etc. -></button>' +
                 (spot.surflineUrl ? '<a class="surfline-btn" href="' + spot.surflineUrl + '" target="_blank">🔗 SURFLINE</a>' : '') +
-                '</div>' +
-                '<div id="surf-conditions-' + spot.id + '" class="surf-conditions-section">' +
-                '<div class="loading">' +
-                '<div class="spinner"></div>' +
-                'Loading surf conditions...' +
-                '</div>' +
                 '</div>';
             
-            // Add surf cam section BEFORE weather
+            // Add surf cam section FIRST
             content += '<div class="surfcam-section">';
             content += '<div class="surfcam-title">📹 Free Live Available Surf Cams</div>';
             
@@ -6985,7 +7078,15 @@
             
             content += '</div>';
             
-            // Weather section comes AFTER surf cams
+            // Surf conditions AFTER cams
+            content += '<div id="surf-conditions-' + spot.id + '" class="surf-conditions-section">' +
+                '<div class="loading">' +
+                '<div class="spinner"></div>' +
+                'Loading surf conditions...' +
+                '</div>' +
+                '</div>';
+
+            // Weather section comes AFTER surf conditions
             content += '<div id="weather-' + spot.id + '">' +
                 '<div class="loading">' +
                 '<div class="spinner"></div>' +
@@ -6998,6 +7099,9 @@
             // Set content and show panel
             contentWrapper.innerHTML = content;
             panel.classList.add('active');
+
+            // Check scroll arrow after content renders
+            setTimeout(updatePopupScrollArrow, 300);
 
             // Build inline truncated description after browser has painted the panel
             // Use double rAF to ensure the panel has its final dimensions
@@ -7016,6 +7120,7 @@
             setTimeout(function() {
                 loadSurfConditions(spot.lat, spot.lng, spot.id);
                 loadWeather(spot.lat, spot.lng, spot.id);
+                setTimeout(updatePopupScrollArrow, 1500);
             }, 100);
         }
 
@@ -7115,12 +7220,34 @@
             }
         }
 
+        function updatePopupScrollArrow() {
+            const wrapper = document.getElementById('popupContentWrapper');
+            const arrow = document.getElementById('popupScrollArrow');
+            if (!wrapper || !arrow) return;
+            const atBottom = wrapper.scrollTop + wrapper.clientHeight >= wrapper.scrollHeight - 10;
+            const hasScroll = wrapper.scrollHeight > wrapper.clientHeight + 10;
+            if (hasScroll && !atBottom) {
+                arrow.classList.add('visible');
+            } else {
+                arrow.classList.remove('visible');
+            }
+        }
+
+        function scrollPopupDown() {
+            const wrapper = document.getElementById('popupContentWrapper');
+            if (wrapper) wrapper.scrollBy({ top: 120, behavior: 'smooth' });
+        }
+
         function closeMapPopup() {
             console.log('Closing popup');
             
             // Hide the panel
             const panel = document.getElementById('mapPopupPanel');
             panel.classList.remove('active');
+
+            // Hide scroll arrow
+            const arrow = document.getElementById('popupScrollArrow');
+            if (arrow) arrow.classList.remove('visible');
             
             // Change marker back to red
             if (currentOpenSpotId !== null) {
