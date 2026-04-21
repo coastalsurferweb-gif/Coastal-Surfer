@@ -2186,8 +2186,9 @@
                 max-height: 70vh;
             }
 
-            /* ── Popup — bottom sheet style on mobile ── */
+            /* ── Popup — fixed bottom sheet anchored to viewport ── */
             .map-popup-panel {
+                position: fixed !important;
                 top: auto !important;
                 bottom: 0 !important;
                 left: 0 !important;
@@ -2197,6 +2198,7 @@
                 max-height: 60vh !important;
                 border-radius: 16px 16px 0 0 !important;
                 box-shadow: 0 -4px 20px rgba(0,0,0,0.2) !important;
+                z-index: 9999 !important;
             }
             .popup-title { font-size: 1em; }
             .popup-header { padding: 10px 12px 8px 12px; }
@@ -2313,6 +2315,7 @@
             #map { height: 360px; }
             .gear-grid { grid-template-columns: 1fr; }
             .map-popup-panel {
+                position: fixed !important;
                 height: 65vh !important;
                 max-height: 65vh !important;
             }
@@ -2330,6 +2333,7 @@
             .tab { font-size: 9px; padding: 7px 2px; min-height: 48px; }
             #map { height: 320px; }
             .map-popup-panel {
+                position: fixed !important;
                 height: 70vh !important;
                 max-height: 70vh !important;
             }
