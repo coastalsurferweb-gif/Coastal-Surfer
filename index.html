@@ -555,10 +555,10 @@
             top: 0;
             right: 0;
             bottom: 0;
-            padding: 0 15px;
+            padding: 0 10px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
             z-index: 10;
         }
 
@@ -1272,7 +1272,9 @@
 
         /* Spot Info Button (Photos, Parking, etc.) */
         .spot-info-btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             background: white;
             padding: 6px 16px;
             border-radius: 5px;
@@ -1295,7 +1297,7 @@
         .spot-btn-row {
             display: flex;
             gap: 8px;
-            align-items: center;
+            align-items: stretch;
             margin-bottom: 4px;
             width: 100%;
         }
@@ -2222,8 +2224,13 @@
                 box-shadow: 0 -4px 20px rgba(0,0,0,0.2) !important;
                 z-index: 9999 !important;
             }
-            .popup-title { font-size: 1em; padding-right: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .popup-title { font-size: 1em; padding-right: 136px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
             .popup-header { padding: 10px 12px 8px 12px; }
+            .popup-close-btn, .popup-favorite-btn, .popup-visited-btn, .popup-share-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
 
             /* ── Popup handle indicator ── */
             .map-popup-panel::before {
