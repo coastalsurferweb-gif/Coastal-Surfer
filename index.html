@@ -8942,5 +8942,47 @@
         }
     </script>
 
+    <!-- Mobile Bottom Ad Bar -->
+    <style>
+        .mobile-ad-bar {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-ad-bar {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                background: white;
+                border-top: 1px solid #e0e0e0;
+                box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+                z-index: 9000;
+                align-items: center;
+                justify-content: center;
+                min-height: 60px;
+                max-height: 100px;
+                padding: 4px 0;
+            }
+            /* Push page content up so it doesn't hide behind the bar */
+            body {
+                padding-bottom: 70px;
+            }
+        }
+    </style>
+
+    <div class="mobile-ad-bar">
+        <!-- Replace the ins tag below with your real AdSense ad unit code -->
+        <!-- Go to AdSense → Ads → By ad unit → Display ads → choose "Horizontal/Banner" format -->
+        <!-- For now this shows a placeholder until Google approves and you add the real unit -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:320px;height:50px"
+             data-ad-client="ca-pub-2387237213252511"
+             data-ad-slot="REPLACE_WITH_YOUR_AD_SLOT_ID">
+        </ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
 </body>
 </html>
