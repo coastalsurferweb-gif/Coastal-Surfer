@@ -3565,6 +3565,7 @@
             <button class="footer-link" onclick="openFooterModal('journey')">Webmaker's Surf Journey</button>
             <button class="footer-link" onclick="openFooterModal('updates')">Updates</button>
             <button class="footer-link" onclick="switchTab('contact'); window.scrollTo({top:0,behavior:'smooth'})">Contact</button>
+            <button class="footer-link" onclick="openFooterModal('privacy')">Privacy Policy</button>
         </div>
         <p style="font-size: 12px; color: #666; margin-top: 14px;">© 2025 Coastal Surfer · Built with 🤙 for surfers everywhere</p>
     </footer>
@@ -8025,6 +8026,39 @@
                             <span>Began writing website, got the basics with 20 spot templates made.</span>
                         </li>
                     </ul>
+                `
+            },
+            privacy: {
+                title: '🔒 Privacy Policy',
+                html: `
+                    <p style="font-size:11px;color:#999;margin-bottom:14px;">Last updated: April 2026</p>
+
+                    <p>Coastal Surfer ("we", "us", or "our") operates the website coastal-surfer.com. This page explains how we collect, use, and protect your information.</p>
+
+                    <h4 style="color:#0083b0;margin:16px 0 6px;">Information We Collect</h4>
+                    <p><strong>Account data:</strong> If you sign in with Google, we store your Google account name, email address, and profile photo via Firebase Authentication. We also store your saved favorites and visited surf spots in our database.</p>
+                    <p><strong>Usage data:</strong> We do not directly collect browsing data. However, third-party services we use (Google AdSense, Google Analytics) may collect anonymized usage information such as pages visited, time on site, and general location. See their respective privacy policies for details.</p>
+
+                    <h4 style="color:#0083b0;margin:16px 0 6px;">How We Use Your Information</h4>
+                    <p>We use your information solely to provide the services on this site — syncing your favorites and visited spots across devices when you are signed in. We do not sell, trade, or share your personal information with third parties.</p>
+
+                    <h4 style="color:#0083b0;margin:16px 0 6px;">Cookies & Advertising</h4>
+                    <p>This site uses Google AdSense to display advertisements. Google may use cookies to serve ads based on your prior visits to this and other websites. You can opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" style="color:#0083b0;">Google Ads Settings</a>.</p>
+
+                    <h4 style="color:#0083b0;margin:16px 0 6px;">Affiliate Links</h4>
+                    <p>This site contains Amazon affiliate links. When you click these links and make a purchase, we may earn a small commission at no extra cost to you.</p>
+
+                    <h4 style="color:#0083b0;margin:16px 0 6px;">Data Storage</h4>
+                    <p>User data (favorites, visited spots) is stored securely via Google Firebase. You can delete your data at any time by signing out and contacting us via the Contact page to request deletion.</p>
+
+                    <h4 style="color:#0083b0;margin:16px 0 6px;">Children's Privacy</h4>
+                    <p>This site is not directed at children under 13. We do not knowingly collect personal information from children.</p>
+
+                    <h4 style="color:#0083b0;margin:16px 0 6px;">Changes to This Policy</h4>
+                    <p>We may update this policy from time to time. Any changes will be posted on this page with an updated date.</p>
+
+                    <h4 style="color:#0083b0;margin:16px 0 6px;">Contact</h4>
+                    <p>If you have any questions about this privacy policy, please reach out via the <a href="#" onclick="closeFooterModal(); switchTab('contact'); window.scrollTo({top:0,behavior:'smooth'}); return false;" style="color:#0083b0;font-weight:bold;">Contact page</a>.</p>
                 `
             }
         };
