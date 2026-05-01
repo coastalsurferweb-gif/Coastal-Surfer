@@ -2066,8 +2066,219 @@
         }
 
         /* =============================================
-           MOBILE — 768px and below
+           GUIDES TAB STYLES
            ============================================= */
+        .guides-container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 10px 0 30px;
+        }
+        .guides-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .guides-header h2 {
+            color: #0083b0;
+            font-size: 1.6em;
+            margin-bottom: 8px;
+        }
+        .guides-header p {
+            color: #666;
+            font-size: 0.95em;
+        }
+        /* Guide cards on the listing page */
+        .guides-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        @media (max-width: 640px) {
+            .guides-grid { grid-template-columns: 1fr; }
+        }
+        .guide-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: transform 0.25s, box-shadow 0.25s;
+            border: 1px solid #eee;
+        }
+        .guide-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,131,176,0.15);
+        }
+        .guide-card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            background: linear-gradient(135deg, #0083b0, #00c6ff);
+        }
+        .guide-card-img-placeholder {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #0083b0, #00c6ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+        }
+        .guide-card-body {
+            padding: 16px 18px 20px;
+        }
+        .guide-card-tag {
+            display: inline-block;
+            background: #e0f4ff;
+            color: #0083b0;
+            font-size: 0.72em;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 8px;
+        }
+        .guide-card h3 {
+            font-size: 1.05em;
+            color: #222;
+            margin-bottom: 8px;
+            line-height: 1.35;
+        }
+        .guide-card p {
+            font-size: 0.85em;
+            color: #666;
+            line-height: 1.55;
+            margin-bottom: 12px;
+        }
+        .guide-card-read {
+            font-size: 0.82em;
+            font-weight: bold;
+            color: #0083b0;
+        }
+        /* Individual article view */
+        .guide-article {
+            display: none;
+            max-width: 720px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+        }
+        .guide-article.active { display: block; }
+        .guide-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: none;
+            color: #0083b0;
+            font-weight: bold;
+            font-size: 0.9em;
+            cursor: pointer;
+            padding: 0 0 20px 0;
+            transition: gap 0.2s;
+        }
+        .guide-back-btn:hover { gap: 10px; }
+        .guide-article-hero {
+            width: 100%;
+            max-height: 340px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            display: block;
+        }
+        .guide-article-hero-placeholder {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #0083b0, #00c6ff);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+        }
+        .guide-article h1 {
+            font-size: 1.7em;
+            color: #111;
+            line-height: 1.25;
+            margin-bottom: 8px;
+        }
+        .guide-article-meta {
+            font-size: 0.8em;
+            color: #999;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .guide-article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .guide-article-body {
+            font-size: 0.97em;
+            line-height: 1.8;
+            color: #333;
+        }
+        .guide-article-body h2 {
+            font-size: 1.2em;
+            color: #0083b0;
+            margin: 28px 0 10px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #e0f4ff;
+        }
+        .guide-article-body h3 {
+            font-size: 1.05em;
+            color: #222;
+            margin: 20px 0 8px;
+        }
+        .guide-article-body p {
+            margin-bottom: 16px;
+        }
+        .guide-article-body ul, .guide-article-body ol {
+            margin: 0 0 16px 20px;
+        }
+        .guide-article-body li {
+            margin-bottom: 8px;
+        }
+        /* In-article photo — add class="guide-photo" to any img inside article body */
+        .guide-article-body .guide-photo {
+            width: 100%;
+            border-radius: 10px;
+            margin: 20px 0;
+            object-fit: cover;
+            display: block;
+        }
+        .guide-article-body .guide-photo-caption {
+            text-align: center;
+            font-size: 0.78em;
+            color: #999;
+            margin-top: -12px;
+            margin-bottom: 20px;
+        }
+        .guide-tip-box {
+            background: #e0f4ff;
+            border-left: 4px solid #0083b0;
+            border-radius: 0 8px 8px 0;
+            padding: 14px 18px;
+            margin: 20px 0;
+            font-size: 0.92em;
+        }
+        .guide-tip-box strong { color: #0083b0; }
+        .guide-warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #f59e0b;
+            border-radius: 0 8px 8px 0;
+            padding: 14px 18px;
+            margin: 20px 0;
+            font-size: 0.92em;
+        }
+        .guide-warning-box strong { color: #b45309; }
+        .guides-listing { display: block; }
+        .guides-listing.hidden { display: none; }
         @media (max-width: 768px) {
 
             /* ── HTML / Body ── */
@@ -2642,6 +2853,7 @@
             <button class="tab" onclick="switchTab('favorites')">⭐ Favorites & Visited</button>
             <button class="tab" onclick="switchTab('gear')">🏄 My Gear Picks</button>
             <button class="tab" onclick="switchTab('surf-log')">📓 Surf Log</button>
+            <button class="tab" onclick="switchTab('guides')">📖 Guides</button>
             <button class="tab" onclick="switchTab('contact')">✉️ Contact Me</button>
         </div>
     </nav>
@@ -3272,7 +3484,416 @@
             </div>
 
             <!-- Tab 4: Contact -->
-            <div id="contact" class="tab-content">
+            <!-- GUIDES TAB -->
+            <div id="guides" class="tab-content">
+                <div class="guides-container">
+
+                    <!-- LISTING VIEW -->
+                    <div class="guides-listing" id="guidesListing">
+                        <div class="guides-header">
+                            <h2>📖 Surf Guides</h2>
+                            <p>Everything you need to know to get in the water safely and confidently.</p>
+                        </div>
+                        <div class="guides-grid">
+
+                            <!-- Card 1 -->
+                            <div class="guide-card" onclick="openGuide('guide1')">
+                                <!-- PHOTO: replace the emoji placeholder below with:
+                                     <img class="guide-card-img" src="YOUR_IMAGE_URL" alt="How to start surfing"> -->
+                                <div class="guide-card-img-placeholder">🏄</div>
+                                <div class="guide-card-body">
+                                    <span class="guide-card-tag">Beginner</span>
+                                    <h3>How the Heck Do You Even Begin?!</h3>
+                                    <p>Complete first-timer's guide — what to buy, where to go, and what to actually do when you get there.</p>
+                                    <span class="guide-card-read">Read guide →</span>
+                                </div>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="guide-card" onclick="openGuide('guide2')">
+                                <!-- PHOTO: replace the emoji placeholder below with:
+                                     <img class="guide-card-img" src="YOUR_IMAGE_URL" alt="Surf etiquette"> -->
+                                <div class="guide-card-img-placeholder">🤙</div>
+                                <div class="guide-card-body">
+                                    <span class="guide-card-tag">Etiquette</span>
+                                    <h3>Surf Etiquette: Don't Get Yelled At</h3>
+                                    <p>The unwritten rules of the lineup — learn them before you paddle out or risk the wrath of locals.</p>
+                                    <span class="guide-card-read">Read guide →</span>
+                                </div>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div class="guide-card" onclick="openGuide('guide3')">
+                                <!-- PHOTO: replace the emoji placeholder below with:
+                                     <img class="guide-card-img" src="YOUR_IMAGE_URL" alt="Surf safety"> -->
+                                <div class="guide-card-img-placeholder">🛟</div>
+                                <div class="guide-card-body">
+                                    <span class="guide-card-tag">Safety</span>
+                                    <h3>Safety: Reducing Tears and Fears</h3>
+                                    <p>Ocean hazards, rip currents, reef, and how to handle wipeouts without panicking.</p>
+                                    <span class="guide-card-read">Read guide →</span>
+                                </div>
+                            </div>
+
+                            <!-- Card 4 -->
+                            <div class="guide-card" onclick="openGuide('guide4')">
+                                <!-- PHOTO: replace the emoji placeholder below with:
+                                     <img class="guide-card-img" src="YOUR_IMAGE_URL" alt="Surf workout"> -->
+                                <div class="guide-card-img-placeholder">💪</div>
+                                <div class="guide-card-body">
+                                    <span class="guide-card-tag">Fitness</span>
+                                    <h3>Workout Routines for Beginner Surfers</h3>
+                                    <p>Build the paddle strength, balance, and flexibility you need to progress faster in the water.</p>
+                                    <span class="guide-card-read">Read guide →</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div><!-- end guides-listing -->
+
+                    <!-- =============================================
+                         ARTICLE 1: How to Start Surfing
+                         ============================================= -->
+                    <div class="guide-article" id="guide1">
+                        <button class="guide-back-btn" onclick="closeGuide()">← Back to Guides</button>
+
+                        <!-- HERO PHOTO: replace the placeholder below with:
+                             <img class="guide-article-hero" src="YOUR_IMAGE_URL" alt="How to start surfing"> -->
+                        <div class="guide-article-hero-placeholder">🏄</div>
+
+                        <div class="guide-article-body">
+                            <span class="guide-card-tag">Beginner</span>
+                            <h1>How the Heck Do You Even Begin?!</h1>
+                            <div class="guide-article-meta">
+                                <span>📅 Updated 2026</span>
+                                <span>⏱️ 6 min read</span>
+                                <span>🏄 Beginner</span>
+                            </div>
+
+                            <p>Every surfer you've ever admired — every smooth carve, every barrel, every casual hang-five on a longboard — started exactly where you are right now: standing on the beach, watching the waves, wondering how the heck anyone actually does that.</p>
+
+                            <p>The good news? Surfing is learnable. The bad news? It takes time, humility, and a willingness to get worked by waves that look harmless from the shore. Here's everything you need to know to get started.</p>
+
+                            <!-- IN-ARTICLE PHOTO EXAMPLE: add photos anywhere in the article like this:
+                            <img class="guide-photo" src="YOUR_IMAGE_URL" alt="Description">
+                            <p class="guide-photo-caption">Caption goes here</p>
+                            -->
+
+                            <h2>Step 1 — Get the Right Board</h2>
+                            <p>The single biggest mistake beginners make is starting on too small a board. If you've seen shortboards in the water and want one — forget it for now. Shortboards are incredibly hard to paddle, hard to balance on, and will make surfing miserable and frustrating.</p>
+
+                            <p>What you want is a <strong>foam board (also called a foamie or soft-top)</strong>, somewhere between 8 and 9 feet long. The Wavestorm 8' is the most popular beginner board in the world for good reason — it's forgiving, floaty, and nearly impossible to seriously hurt yourself on.</p>
+
+                            <div class="guide-tip-box">
+                                <strong>💡 Pro Tip:</strong> Volume is your friend. The more foam under you, the easier it is to paddle and catch waves. Don't worry about looking cool — every great surfer learned on a big foamie.
+                            </div>
+
+                            <h2>Step 2 — Find the Right Beach</h2>
+                            <p>Not all waves are created equal for beginners. You want a beach break with small, slow, crumbly waves — ideally 1-3 feet with a gentle slope. Avoid anything with rocks, reefs, or strong currents until you're comfortable.</p>
+
+                            <p>Look for beaches that have designated beginner areas or active surf schools. Lifeguards are a bonus. Spots like Waikiki in Hawaii, Cowell's in Santa Cruz, or any gentle beach break on a small day are perfect.</p>
+
+                            <h2>Step 3 — Take at Least One Lesson</h2>
+                            <p>A single two-hour surf lesson with a qualified instructor will save you months of frustration. They'll teach you how to read waves, the correct pop-up technique, where to position yourself on the board, and how to fall safely. It's genuinely the fastest shortcut in surfing.</p>
+
+                            <h2>Step 4 — Learn to Pop Up on Land First</h2>
+                            <p>The pop-up is the motion of going from lying flat on the board to standing. Practice it on the beach or at home until it's automatic:</p>
+
+                            <ol>
+                                <li>Lie face down, hands flat beside your chest like a push-up</li>
+                                <li>Push up with your arms and spring your feet to the centre of the board simultaneously — don't do it one foot at a time</li>
+                                <li>Land with feet shoulder-width apart, knees bent, arms out for balance</li>
+                                <li>Look forward, not down at your feet</li>
+                            </ol>
+
+                            <div class="guide-tip-box">
+                                <strong>💡 Regular or Goofy?</strong> If your left foot is forward, you're <em>regular</em>. Right foot forward = <em>goofy</em>. Not sure which you are? Have a friend give you a gentle push from behind and whichever foot steps out first to catch yourself is your front foot.
+                            </div>
+
+                            <h2>Step 5 — Paddle Out and Catch Your First Wave</h2>
+                            <p>Start in the whitewash — the broken, foamy part of the wave after it's already broken. Point your board toward shore, lie down, and when a wave of foam reaches you, paddle hard and pop up. These slow rolling waves of whitewater are the perfect classroom.</p>
+
+                            <p>Once you can stand up in the whitewash consistently, start paddling a little further out and trying to catch unbroken waves before they break. This is where it gets addictive.</p>
+
+                            <h2>What to Expect Your First Few Sessions</h2>
+                            <p>You will fall a lot. You will swallow water. Your arms will burn. You'll catch maybe 2 waves out of every 10 you try for. This is completely normal and exactly what every surfer went through. The learning curve is steep at first and then suddenly something clicks — usually around session 5-10 — and you'll start feeling it.</p>
+
+                            <div class="guide-tip-box">
+                                <strong>💡 Paddle More Than You Surf:</strong> The biggest limiter for beginners is paddle fitness. The more time you spend in the water — even just paddling around — the faster you'll progress.
+                            </div>
+
+                            <h2>Essential Gear Checklist</h2>
+                            <ul>
+                                <li>🏄 Foam/soft-top surfboard (8-9ft)</li>
+                                <li>🔗 Leash (always wear one — it keeps your board from becoming a projectile)</li>
+                                <li>🌊 Wetsuit appropriate for your water temperature</li>
+                                <li>☀️ Reef-safe sunscreen — apply before you get in the water</li>
+                                <li>🦶 Surf wax for the top of the board so your feet grip</li>
+                            </ul>
+
+                            <p>That's it. You don't need anything else to start. Resist the urge to buy more gear until you've been surfing for a few months and know what you actually want.</p>
+
+                            <p>Now go get in the water. The ocean is waiting. 🤙</p>
+                        </div>
+                    </div><!-- end guide1 -->
+
+                    <!-- =============================================
+                         ARTICLE 2: Surf Etiquette
+                         ============================================= -->
+                    <div class="guide-article" id="guide2">
+                        <button class="guide-back-btn" onclick="closeGuide()">← Back to Guides</button>
+
+                        <!-- HERO PHOTO: replace with:
+                             <img class="guide-article-hero" src="YOUR_IMAGE_URL" alt="Surf etiquette lineup"> -->
+                        <div class="guide-article-hero-placeholder">🤙</div>
+
+                        <div class="guide-article-body">
+                            <span class="guide-card-tag">Etiquette</span>
+                            <h1>Surf Etiquette: Don't Get Yelled At</h1>
+                            <div class="guide-article-meta">
+                                <span>📅 Updated 2026</span>
+                                <span>⏱️ 5 min read</span>
+                                <span>🏄 All Levels</span>
+                            </div>
+
+                            <p>The ocean has rules. They're not written down anywhere official, there's no referee, and nobody hands you a rulebook when you paddle out. But break them and you'll know about it — ranging from a cold stare to a full verbal dressing-down from a very unhappy local.</p>
+
+                            <p>The good news is the rules are simple, logical, and exist for good reason: to keep everyone safe and make the waves enjoyable for all. Learn them and you'll be welcomed. Ignore them and you'll be that person everyone groans about.</p>
+
+                            <h2>The Golden Rule: Right of Way</h2>
+                            <p>The most important rule in surfing is the <strong>right of way</strong> rule. The surfer closest to the peak of the breaking wave has priority — they got there first and have the right to ride that wave unimpeded.</p>
+
+                            <p>If someone is already up and riding, <strong>do not drop in on them</strong>. Dropping in means taking off on a wave that someone else is already riding. It's the number one sin of surfing and the fastest way to cause a collision or start a confrontation.</p>
+
+                            <div class="guide-warning-box">
+                                <strong>⚠️ Never Drop In:</strong> If you're not 100% sure you have priority on a wave, let it go. There will be another one. It's not worth the risk of injuring yourself, someone else, or starting a fight in the water.
+                            </div>
+
+                            <h2>Don't Snake</h2>
+                            <p>Snaking means paddling around someone to get into the priority position right before a wave arrives. It's sneaky, it's obvious, and it's deeply disrespectful. Take your turn in the lineup rotation like everyone else.</p>
+
+                            <h2>Hold Onto Your Board</h2>
+                            <p>When a wave is coming and you can't duck dive or paddle over it, the instinct is to ditch your board and dive under. <strong>Don't.</strong> Your board becomes a missile that can hit other surfers behind you. Try to keep hold of it or at least push it to the side away from other people before you go under.</p>
+
+                            <h2>Communicate</h2>
+                            <p>Many peaks break both left and right. If you're taking off and someone else is going for the same wave, call your direction — shout "left!" or "right!" so you can both go opposite ways and share the wave safely.</p>
+
+                            <h2>Respect the Locals</h2>
+                            <p>Locals surf their home break every day. They know where the best peaks are, where the current runs, and they have an unspoken priority that comes from showing up consistently. When you're visiting a new break:</p>
+                            <ul>
+                                <li>Don't paddle straight to the peak and start catching every wave</li>
+                                <li>Sit on the shoulder, observe the lineup, learn how it works</li>
+                                <li>Be friendly — a smile and a nod go a long way</li>
+                                <li>Don't be greedy — catch a few waves and share the rest</li>
+                                <li>Say thanks if someone lets you have a wave</li>
+                            </ul>
+
+                            <h2>Don't Paddle Through the Lineup</h2>
+                            <p>When paddling back out after a ride, don't paddle through the middle of the lineup where people are surfing waves. Go around the side through the channel — the deeper water where waves aren't breaking. It's safer and keeps you out of everyone's way.</p>
+
+                            <h2>Beginners: Know Your Limits</h2>
+                            <p>If you're a beginner, don't paddle out to an expert break crowded with experienced surfers and expect the same treatment as a seasoned surfer. Start at beginner-appropriate spots, build your skills, and earn your place in the lineup gradually. There's no shame in starting small — in fact, it's the right move.</p>
+
+                            <div class="guide-tip-box">
+                                <strong>💡 The Simple Version:</strong> Be aware, be respectful, share the waves, don't drop in, and don't be greedy. Do those five things and you'll be welcome anywhere.
+                            </div>
+
+                            <p>Surfing's culture is one of the things that makes it special. Being part of that culture — not just riding waves but being a positive presence in the water — is what separates a surfer from someone who just surfs. Be the kind of person people are happy to see paddle out. 🤙</p>
+                        </div>
+                    </div><!-- end guide2 -->
+
+                    <!-- =============================================
+                         ARTICLE 3: Safety
+                         ============================================= -->
+                    <div class="guide-article" id="guide3">
+                        <button class="guide-back-btn" onclick="closeGuide()">← Back to Guides</button>
+
+                        <!-- HERO PHOTO: replace with:
+                             <img class="guide-article-hero" src="YOUR_IMAGE_URL" alt="Surf safety ocean waves"> -->
+                        <div class="guide-article-hero-placeholder">🛟</div>
+
+                        <div class="guide-article-body">
+                            <span class="guide-card-tag">Safety</span>
+                            <h1>Safety: Reducing Tears and Fears</h1>
+                            <div class="guide-article-meta">
+                                <span>📅 Updated 2026</span>
+                                <span>⏱️ 7 min read</span>
+                                <span>🏄 All Levels</span>
+                            </div>
+
+                            <p>The ocean is powerful, unpredictable, and doesn't care how confident you feel. Every experienced surfer has a healthy respect for the water — not fear, but awareness. Understanding the hazards and knowing how to handle them is what turns scary situations into manageable ones.</p>
+
+                            <p>This guide covers the most common dangers beginners face and exactly what to do when things go wrong.</p>
+
+                            <h2>Rip Currents — The #1 Danger</h2>
+                            <p>A rip current (often called a rip or rip tide) is a powerful channel of water flowing away from shore. They form in gaps between sandbars or near structures like piers and jetties, and they can pull even strong swimmers out to sea faster than they can swim against it.</p>
+
+                            <h3>How to Spot a Rip</h3>
+                            <ul>
+                                <li>A channel of choppy, discoloured, or foamy water moving away from shore</li>
+                                <li>A line of floating debris or foam moving seaward</li>
+                                <li>An area where the waves aren't breaking as consistently as nearby areas</li>
+                            </ul>
+
+                            <h3>What to Do If You're Caught in a Rip</h3>
+                            <div class="guide-warning-box">
+                                <strong>⚠️ Never panic and never swim directly against a rip.</strong> You will exhaust yourself and make things worse.
+                            </div>
+                            <ol>
+                                <li><strong>Stay calm.</strong> A rip won't pull you underwater — it pulls you out, not down.</li>
+                                <li><strong>Swim parallel to shore</strong> (left or right) to escape the current's channel — it's usually only 10-30 metres wide.</li>
+                                <li><strong>Once out of the rip</strong>, swim diagonally back to shore at an angle.</li>
+                                <li><strong>If you can't escape</strong>, float and conserve energy, wave for help, and let the rip carry you — it will lose power once it reaches deeper water.</li>
+                                <li><strong>If you have your board</strong>, hold onto it — it's your lifejacket.</li>
+                            </ol>
+
+                            <h2>Always Wear Your Leash</h2>
+                            <p>Your leash is the cord that attaches your ankle to your board. It is the most important safety device in surfing. Without it, every wipeout sends your board flying away from you — potentially hitting other surfers and leaving you with nothing to float on while you recover.</p>
+
+                            <p>Always put your leash on before you go in the water, every single time, no exceptions.</p>
+
+                            <h2>Wipeouts — How to Fall Safely</h2>
+                            <p>Falling is part of surfing. Learning to fall well prevents most injuries:</p>
+                            <ul>
+                                <li><strong>Fall flat</strong> — try to land on your back or side, spreading impact across a larger surface area. Avoid diving head-first.</li>
+                                <li><strong>Cover your head</strong> with your arms as you come up. Your board may be nearby and waves can push it into you.</li>
+                                <li><strong>Never jump feet-first</strong> in unknown water — shallow reefs and sandbars can snap ankles.</li>
+                                <li><strong>On reef breaks</strong>, try to fall onto the wave face rather than straight down onto the reef.</li>
+                            </ul>
+
+                            <div class="guide-tip-box">
+                                <strong>💡 The Two-Second Rule:</strong> After a wipeout, wait two full seconds before surfacing. Waves come in sets — surfacing immediately can put you directly in the path of the next wave. Staying down briefly lets it pass over you.
+                            </div>
+
+                            <h2>Know the Conditions Before You Paddle Out</h2>
+                            <p>Check the surf report before every session. Know the wave height, tide, swell period, and wind. If conditions are beyond your skill level, don't paddle out — there's no shame in watching from the beach. The ocean will be there tomorrow.</p>
+
+                            <ul>
+                                <li><strong>Wave height:</strong> Beginners should stick to 1-3ft waves. 4ft+ can be overwhelming and dangerous for less experienced surfers.</li>
+                                <li><strong>Swell period:</strong> Long period swells (14s+) create more powerful, faster waves than short period wind swell — they pack more punch than their height suggests.</li>
+                                <li><strong>Tides:</strong> Reef breaks are significantly more dangerous at low tide. Know whether the tide is pushing up or draining out.</li>
+                            </ul>
+
+                            <h2>Sun and Dehydration</h2>
+                            <p>It sounds simple but it's seriously underestimated. You lose water fast in the surf — salt water dries your skin, the sun beats down, and the physical exertion of paddling burns through energy and fluids quickly. Drink water before and after sessions, apply reef-safe SPF 50+ sunscreen (including your ears, back of neck, and lips), and don't surf for hours without a break.</p>
+
+                            <h2>Marine Life</h2>
+                            <p>Most marine life is completely harmless to surfers. Sharks are rare and attacks are extremely uncommon — statistically you're more likely to be struck by lightning. However:</p>
+                            <ul>
+                                <li>Avoid surfing at dawn, dusk, or at night when sharks are most active</li>
+                                <li>Don't surf near river mouths after heavy rain (runoff attracts baitfish, which attract sharks)</li>
+                                <li>If you cut yourself, exit the water — blood can attract marine predators</li>
+                                <li>Jellyfish stings are more common — if stung, exit the water and rinse with salt water</li>
+                            </ul>
+
+                            <div class="guide-tip-box">
+                                <strong>💡 Buddy System:</strong> Never surf alone, especially as a beginner, in unfamiliar locations, or in big surf. Always let someone know where you're surfing and when you expect to be back.
+                            </div>
+
+                            <p>Respect the ocean and it will reward you. The surfers who last a lifetime are the ones who understand that the ocean is always in charge — and they paddle out prepared. 🛟</p>
+                        </div>
+                    </div><!-- end guide3 -->
+
+                    <!-- =============================================
+                         ARTICLE 4: Workout Routines
+                         ============================================= -->
+                    <div class="guide-article" id="guide4">
+                        <button class="guide-back-btn" onclick="closeGuide()">← Back to Guides</button>
+
+                        <!-- HERO PHOTO: replace with:
+                             <img class="guide-article-hero" src="YOUR_IMAGE_URL" alt="Surf fitness workout"> -->
+                        <div class="guide-article-hero-placeholder">💪</div>
+
+                        <div class="guide-article-body">
+                            <span class="guide-card-tag">Fitness</span>
+                            <h1>Workout Routines for Beginner Surfers</h1>
+                            <div class="guide-article-meta">
+                                <span>📅 Updated 2026</span>
+                                <span>⏱️ 6 min read</span>
+                                <span>🏄 Beginner</span>
+                            </div>
+
+                            <p>Here's something nobody warns you about surfing: the first few sessions will leave you more physically wrecked than almost any other sport you've tried. Arms burning, shoulders screaming, lungs gasping — and that's just from paddling. Surfing demands a very specific combination of endurance, upper body strength, core stability, and flexibility.</p>
+
+                            <p>The good news: you don't need to be an athlete to start surfing. But building these foundational fitness elements off the board will make you progress dramatically faster in the water.</p>
+
+                            <h2>The Four Pillars of Surf Fitness</h2>
+
+                            <h3>1. Paddle Endurance (Upper Body)</h3>
+                            <p>Paddling is 90% of surfing. You'll spend far more time paddling out, paddling for waves, and paddling back into position than actually riding waves. Your shoulders, lats, and triceps need to be ready.</p>
+
+                            <h3>2. Core Strength</h3>
+                            <p>Every manoeuvre on the board flows through your core. A strong core keeps you stable when you pop up, helps you hold your line on a wave, and prevents the wobbling that leads to wipeouts.</p>
+
+                            <h3>3. Leg Strength and Balance</h3>
+                            <p>Once you're standing, it's all legs and hips. Squats, lunges, and balance work translate directly to better stability on the board.</p>
+
+                            <h3>4. Flexibility</h3>
+                            <p>The pop-up requires a big explosive movement — from flat to standing in one fluid motion. Tight hips, hamstrings, and back muscles make this harder and can cause injury. Flexibility is often overlooked but it's critical.</p>
+
+                            <h2>The Beginner Surf Fitness Routine</h2>
+                            <p>Do this 3 times per week. No gym required — all bodyweight.</p>
+
+                            <h3>Warm-Up (5 minutes)</h3>
+                            <ul>
+                                <li>Arm circles — 30 seconds forward, 30 seconds backward</li>
+                                <li>Hip circles — 30 seconds each direction</li>
+                                <li>Cat-cow stretch — 10 reps</li>
+                                <li>World's greatest stretch — 5 reps each side</li>
+                            </ul>
+
+                            <h3>Main Circuit — 3 Rounds</h3>
+                            <ul>
+                                <li><strong>Pop-up practice</strong> — 10 reps (on the floor, as if on your board)</li>
+                                <li><strong>Push-ups</strong> — 15 reps (builds paddle power)</li>
+                                <li><strong>Plank</strong> — 45 seconds (core stability)</li>
+                                <li><strong>Bodyweight squats</strong> — 20 reps (leg strength)</li>
+                                <li><strong>Superman holds</strong> — 10 reps, 3 second hold (lower back and paddle position)</li>
+                                <li><strong>Single-leg balance</strong> — 30 seconds each leg (board balance)</li>
+                                <li><strong>Burpees</strong> — 8 reps (full body conditioning)</li>
+                            </ul>
+
+                            <div class="guide-tip-box">
+                                <strong>💡 Pop-Up Practice is #1:</strong> Of everything on this list, drilling your pop-up off the board is the single most impactful thing you can do for your surfing. Do 20 reps every day. Make it automatic.
+                            </div>
+
+                            <h3>Cool-Down Stretches (5-10 minutes)</h3>
+                            <ul>
+                                <li><strong>Pigeon pose</strong> — 60 seconds each side (hip flexors)</li>
+                                <li><strong>Doorway chest stretch</strong> — 30 seconds (opens up the chest for paddling)</li>
+                                <li><strong>Seated spinal twist</strong> — 30 seconds each side</li>
+                                <li><strong>Child's pose</strong> — 60 seconds (lower back and shoulders)</li>
+                                <li><strong>Downward dog</strong> — 30 seconds (full body)</li>
+                            </ul>
+
+                            <h2>Yoga — The Secret Weapon</h2>
+                            <p>Many surfers swear by yoga as a cross-training tool, and for good reason. It builds exactly the combination of flexibility, balance, core strength, and body awareness that surfing demands. Even one yoga session per week will noticeably improve your surfing within a few months.</p>
+
+                            <p>Look for classes or YouTube channels focused on surf yoga or flow yoga — these are specifically designed to complement water sports.</p>
+
+                            <h2>In the Water Counts Too</h2>
+                            <p>The best training for surfing is surfing. Even if the waves are small or bad, paddling around in the ocean for an hour is more specific conditioning than any gym session. Try to get in the water as often as possible, even just to paddle — your body will adapt quickly.</p>
+
+                            <div class="guide-tip-box">
+                                <strong>💡 Swimming:</strong> Regular swimming — especially freestyle — builds paddle-specific endurance faster than almost anything else. Even 30 minutes in a pool twice a week will dramatically improve your time in the surf.
+                            </div>
+
+                            <h2>How Long Until You See Results?</h2>
+                            <p>With consistent training 3x per week off the board and regular sessions in the water:</p>
+                            <ul>
+                                <li><strong>2-4 weeks:</strong> Noticeably less arm fatigue while paddling</li>
+                                <li><strong>4-8 weeks:</strong> Pop-up becomes more fluid and automatic</li>
+                                <li><strong>8-12 weeks:</strong> You'll be catching more waves per session and staying out longer</li>
+                            </ul>
+
+                            <p>Surfing rewards consistency more than intensity. Show up regularly — in the water and out of it — and the improvement will come. 💪</p>
+                        </div>
+                    </div><!-- end guide4 -->
+
+                </div><!-- end guides-container -->
+            </div><!-- end guides tab -->
+
+            <!-- CONTACT TAB -->
                 <h2 style="margin-bottom: 20px; color: #0083b0; text-align: center;">Get In Touch</h2>
                 
                 <!-- Info Box -->
@@ -9503,6 +10124,21 @@
             if (!event || event.target.id === 'buoyModalOverlay' || event.target.classList.contains('buoy-modal-close')) {
                 document.getElementById('buoyModalOverlay').classList.remove('active');
             }
+        }
+
+        // ===========================================
+        // GUIDES TAB
+        // ===========================================
+        function openGuide(id) {
+            document.getElementById('guidesListing').classList.add('hidden');
+            document.querySelectorAll('.guide-article').forEach(a => a.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        function closeGuide() {
+            document.querySelectorAll('.guide-article').forEach(a => a.classList.remove('active'));
+            document.getElementById('guidesListing').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ===========================================
